@@ -2,7 +2,7 @@ var c=document.getElementById("myCanvas");
 
 var ctx=c.getContext("2d");
 
-var qtc = document.getElementById("quadcanvas");
+//var qtc = document.getElementById("quadcanvas");
 
 var w = 20;
 var h = 15;
