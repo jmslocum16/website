@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Darius' and Josh's Report</title>
+<h1>Darius' and Josh's Report</h1>
+<h2>Simulating Realistic Explosions in a Particle System<h2>
+</head>
+<body>
+
+<h3>Background</h3>
+<p>
+We extended the previous animator project, therefore this program is written in C++ and animator-related knowledge is still needed.<br>
+Knowledge of particle systems and mechanical physics is necessary, and a grasp of basic fluid dynamics is useful.
+</p>
+
+<h3>Implementation</h3>
+<p>
+To simulate realistic particle movements during an explosion, we first created a pressure distribution in the region of the explosion, then applied a bouyancy force based off the pressure distribution to the particles in the explosion's vicinity.<br>
+The pressure simulation was calculated using the Navier-Stokes equations, which describe the motion of fluid substances. . The main equation we used was for modeling incompressable fluid flows:
+</p>
+<img src="equation.jpg">
+<p>
+This equation can be broken down as follows:<br>The first term is the divergence of the velocity field times the pressure, which illustrates that the pressure moves along with the fluid. The second term is the diffusion constant times the pressure acceleration vector, which means the pressure diffuses over time.  Finally the S means that if this point is a "source", somewhere that adds or removes pressure, then it is also included. Thus, we can accurately model the pressure with an iterative solver that diffuses it, advects it, and adds source pressure at every timestep.
+</p>
+</p>
+Given the current state of the pressure, the bouyancy force can be calculated as the pressure gradient multiplied by some constants. Thus, the bouyancy force can be plugged into our existing particle simulation by adding it to the rest of the forces before updating at each timestep.
+</p>
+<p>
+We utilized a couple of techniques to make the particles render more realistically. Although we did not use temperature in calculating the expansion of the particles, we changed the color of the particles to be a function of the amount of pressure (and correspondingly temperature) - the higher the pressure the brighter the color. This is rather simple but realistic substitution since it accounts for the illumination at the center of the explosion and the cooling of the particles as they move outwards. We also made the particles more transparent as their lifetime expired to simulate them burning and disappearing. And lastly, towards the end of their lifetime, we made them black to model the transformation into soot.
+</p>
+
+<h3>Results</h3>
+<p> On the left is the original artifact from our animator project. The middle is the same animation using our new explosions. The right is a closeup of an explosion.
+</p>
+
+<!-- TODO put gifs in span -->
+<span>
+<img src="animator_artifact.gif" alt="Original" height="296" width="340">
+<img src="artifact.gif" alt="Updated" height="296" width="340">
+<img src="explosion.gif" alt="Explosion" height="296" width="340">
+</span>
+
+<h3>Possible Improvements</h3>
+<p>
+Many other explosion systems do the rendering without particles, but instead raytrace through the density distribution and add illumination in the middle. This ends up looking better than ours. Additionally, many modern explosion techniques do more than just simulate the pressure expansion. Some cool ones we could incorporate would be thermal expansion and vorticity particles.
+</p>
+
+<h3>References</h3>
+<p>
+The idea of the pressure solver came from this paper, and we implemented a fairly similar version:
+</p>
+<a href=http://www.dgp.toronto.edu/people/stam/reality/Research/pdf/GDC03.pdf>Real-Time Fluid Dynamics For Games</a>
+<p>
+We also read these papers and got the general idea of using pressure simulation from all of them.
+</p>
+<a href=http://physbam.stanford.edu/~fedkiw/papers/stanford2005-01.pdf>A Vortex Particle Method for Smoke, Water and Explosions</a>
+<br>
+<a href=http://graphics.berkeley.edu/papers/Feldman-ASP-2003-08/Feldman-ASP-2003-08.pdf>Animating Suspended Particle Explosions</a>
+
+<br><br>
+
+<h3>Prototype</h3>
+<a href="../2Dfluids.html">A 2D version we used for testing</a>
+
+<br><br>
+
+</body>
+</html>
