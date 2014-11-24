@@ -138,8 +138,8 @@ function loop() {
 function update() {
   //console.log("deltax: " + deltax);
   //console.log("deltay: " + deltay);
-  updateAI();
   updatePlayer();
+  updateAI();
 
 }
 
