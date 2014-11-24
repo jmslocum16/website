@@ -22,6 +22,8 @@ var enemyAlive;
 var enemyPoints;
 var food;
 var foodEaten;
+var enemyFoodEaten;
+var wonStatus;
 
 function init() {
     deltax = 1;
@@ -33,7 +35,10 @@ function init() {
 		enemyPoints = [{x: 20, y: 220}, {x: 40, y:220}, {x:60, y:220}, {x:80, y: 220}];
     food = {x:220, y:40};
     foodEaten = 0;
+    enemyFoodEaten = 0;
     $(document.getElementById("scorediv")).text("score: " + foodEaten);
+    $(document.getElementById("enemyscorediv")).text("ai score: " + foodEaten);
+    wonStatus = "neither";
 }
 
 
@@ -103,10 +108,22 @@ function loop() {
 
     draw();
 
+
     if (paused) {
         ctx.fillStyle = "#000000";
         ctx.globalAlpha = .3;
         ctx.fillRect(0,0,width, height);
+        ctx.globalAlpha = 1.0;
+        var text;
+        if (wonStatus === 'won') {
+          text = 'You win!';
+        } else if ('lost') {
+          text = 'You lose :(';
+        } else {
+          text = 'draw..';
+        }
+        ctx.font = '40px Georgia';
+        ctx.fillText(text, 100, 100);
     }
     
     time += new Date().getTime();
@@ -153,6 +170,8 @@ function updateAI() {
     if (next === undefined) {
       // totally trapped
       enemyAlive = false;
+      wonStatus = "won";
+      pause();
     } else {
       movePt = next;
     }
@@ -167,6 +186,10 @@ function updateAI() {
   }
   if (movePt !== undefined) {
     move(movePt.x, movePt.y, enemyPoints, false);
+    if (enemyFoodEaten == 15) {
+      wonStatus = "lost";
+      pause();
+    }
   }
 }
 
@@ -205,11 +228,17 @@ function updatePlayer() {
   //check to see if valid
   if (!validMove(nextx, nexty)) { 
     //alert("You lose! Press space to play again.");
+    //pause();
+    wonStatus = "lost";
     pause();
   } else {
     move(nextx, nexty, points, true);
     prevdeltax = deltax;
     prevdeltay = deltay;
+    if (foodEaten == 15) {
+      wonStatus = "won";
+      pause();
+    }
   }
 }
 
@@ -219,6 +248,9 @@ function move(nextx, nexty, pts, addToScore) {
     if (addToScore) {
       foodEaten++;
       $(document.getElementById("scorediv")).text("score: " + foodEaten);	
+    } else {
+      enemyFoodEaten++;
+      $(document.getElementById("enemyscorediv")).text("ai score: " + enemyFoodEaten);	
     }
     getNewFood();
   } else {
