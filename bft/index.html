@@ -3,37 +3,42 @@
 </head>
 <body>
 
+<div id="content">
 <span>
-<!-- TODO <imagesrc="profile.png"/> -->
-I'm Josh Slocum, aka Byzantine Fault Tolerance. Welcome to my website!
+<img src="profpic.png" width=128 height=128/>
+<div style="display:inline-block">
+<p>I'm Josh Slocum, aka Byzantine Fault Tolerance. Welcome to my website!<br/>I'm a 22 year old software engineer and electronic music producer.<br/>I hope you enjoy my music!</p>
+</div>
 </span>
 
-<h3>Music</h3>
-<h4>Soundcloud</h4>
+<h3>Listen</h3>
 <iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/156062443&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>
 
-<h4>YouTube</h4>
-<iframe src="http://www.youtube.com/embed/?listType=user_uploads&list=UCNypBPrNN8FkU25-G-Ten4g" width="480" height="400"></iframe>
-
 <!-- TODO put fb and twitter side by side -->
-<!-- embedded facebook stuff -->
-<h3>Social Media</h3>
-<h4>Facebook</h4>
+<h3>Follow</h3>
+<span id="socialmedia">
+
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=558530577517406";
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=558530577517406";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<div class="fb-page" data-href="https://www.facebook.com/pages/Byzantine-Fault-Tolerance/904498469596552" data-width="400" data-height="600" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/pages/Byzantine-Fault-Tolerance/904498469596552"><a href="https://www.facebook.com/pages/Byzantine-Fault-Tolerance/904498469596552">Byzantine Fault Tolerance</a></blockquote></div></div>
+
+<div class="fb-like" data-href="https://facebook.com/bftmusic" data-layout="standard" data-action="like" data-show-faces="true" data-share="false"></div>
+
+<div style="display:inline-block" class="fb-page" data-href="https://www.facebook.com/bftmusic" data-width="400" data-height="600" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/pages/Byzantine-Fault-Tolerance/904498469596552"><a href="https://www.facebook.com/pages/Byzantine-Fault-Tolerance/904498469596552">Byzantine Fault Tolerance</a></blockquote></div></div>
 
 <!-- embedded twitter stuff -->
-<h4>Twitter</h4>
-<div>
-<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/bftofficial1" data-widget-id="616418911005753344">Tweets by @bftofficial1</a>
+<div id="twitter" style="display:inline-block">
+<a width="400" height="600" class="twitter-timeline" data-dnt="true" href="https://twitter.com/bftofficial1" data-widget-id="616418911005753344">Tweets by @bftofficial1</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+
+</span>
+
 </div>
 
 </body>
