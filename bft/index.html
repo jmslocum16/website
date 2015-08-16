@@ -1,23 +1,49 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="styles.css"/>
+<!-- bootstrap stuffs -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 </head>
 <body>
 
 <div class="content">
 <div class="layer"></div>
-<span>
-<img src="profpic.png" width=128 height=128/>
-<div style="display:inline-block">
-<p>I'm Josh Slocum, aka Byzantine Fault Tolerance. Welcome to my website!<br/>I'm a 22 year old software engineer and electronic music producer.<br/>I hope you enjoy my music!</p>
+<div class="navbar">
+<table>
+<tbody>
+<!--<img src="profpic.png" style="top:0; height:100%;" />
+<span style="height: 100%; text-align: center; top:0; display: inline-block; color: white; ">
+Byzantine Fault Tolerance
+</span>-->
+<tr>
+<td>
+<img src="profpic.png" style="height: 64px; width: 64px;" />
+</td>
+<td>
+<span style="margin-left: 10px; color: white;">Byzantine Fault Tolerance</span>
+</td>
+<td>
+<a href="#listen" style="color: white; text-decoration: none; margin-left: 30px;">
+<span class="glyphicon glyphicon-play"  aria-hidden="true"></span>
+Listen
+</a>
+</td>
+<td>
+<a href="#follow" style="color: white; text-decoration: none; margin-left: 30px;">
+<span class="glyphicon glyphicon-user"  aria-hidden="true"></span>
+Follow
+</a>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-</span>
 
-<h3>Listen</h3>
-<iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/156062443&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>
+<h3 id="listen">Listen</h3>
+<iframe width="100%" height="350" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/156062443&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>
 
 <!-- TODO put fb and twitter side by side -->
-<h3>Follow</h3>
+<h3 id="follow">Follow</h3>
 <span id="socialmedia">
 
 <div id="fb-root"></div>
