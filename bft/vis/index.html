@@ -17,23 +17,19 @@ var analyser = audioCtx.createAnalyser();
 source.connect(analyser);
 analyser.connect(audioCtx.destination);
 
-analyser.fftSize = 2048;
+var WIDTH = 1280;
+var HEIGHT = 720;
+
+analyser.fftSize = 4096;
 var bufferLength = analyser.frequencyBinCount;
 var dataArray = new Uint8Array(bufferLength);
 analyser.getByteTimeDomainData(dataArray);
 
-console.log('hello');
-
 var canvas = document.getElementById('drawcanvas');
 var canvasCtx = canvas.getContext('2d');
 
-var WIDTH = 1280;
-var HEIGHT = 720;
-
-console.log(myAudio);
-
 var n = 30;
-var k = 5;
+var k = Math.round(analyser.fftSize / 50);
 var pastData = [];
 
 function draw() {
@@ -95,8 +91,8 @@ function draw() {
 		min = Math.min(min, dataArray2[i]);
 	}
 
-	console.log(max);
-	console.log(min);
+	//console.log(max);
+	//console.log(min);
 	
 
       for(var i = 0; i < bufferLength; i++) {
