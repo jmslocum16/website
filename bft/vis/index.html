@@ -1,0 +1,83 @@
+<html>
+<head>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script>
+
+console.log('test');
+
+$( document ).ready(function() {
+
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+var myAudio = document.getElementById('audioelement');
+// myAudio.crossOrigin = "anonymous";
+
+var source = audioCtx.createMediaElementSource(myAudio);
+
+var analyser = audioCtx.createAnalyser();
+source.connect(analyser);
+analyser.connect(audioCtx.destination);
+
+analyser.fftSize = 2048;
+var bufferLength = analyser.frequencyBinCount;
+var dataArray = new Uint8Array(bufferLength);
+analyser.getByteTimeDomainData(dataArray);
+
+console.log('hello');
+
+var canvas = document.getElementById('drawcanvas');
+var canvasCtx = canvas.getContext('2d');
+
+var WIDTH = 1280;
+var HEIGHT = 720;
+
+console.log(myAudio);
+
+function draw() {
+
+      drawVisual = requestAnimationFrame(draw);
+
+      analyser.getByteTimeDomainData(dataArray);
+
+      canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+      canvasCtx.fillRect(0, 0,WIDTH, HEIGHT);
+
+      canvasCtx.lineWidth = 2;
+      canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
+
+      canvasCtx.beginPath();
+
+      var sliceWidth = WIDTH * 1.0 / bufferLength;
+      var x = 0;
+
+      for(var i = 0; i < bufferLength; i++) {
+   
+        var v = dataArray[i] / 128.0;
+        var y = v * HEIGHT/2;
+
+        if(i === 0) {
+          canvasCtx.moveTo(x, y);
+        } else {
+          canvasCtx.lineTo(x, y);
+        }
+
+        x += sliceWidth;
+      }
+
+      canvasCtx.lineTo(canvas.width, canvas.height/2);
+      canvasCtx.stroke();
+    };
+
+    draw();
+});
+</script>
+</head>
+<body>
+<canvas id="drawcanvas" width="1280" height="720">
+Your browser does not support html5 canvas.
+</canvas>
+<audio controls id="audioelement">
+<source src="skrux.mp3" type="audio/mp3">
+Your browser doesn't support html5 audio.
+</audio>
+</body>
+</html>
