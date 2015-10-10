@@ -32,11 +32,20 @@ var HEIGHT = 720;
 
 console.log(myAudio);
 
+var n = 30;
+var k = 5;
+var pastData = [];
+
 function draw() {
 
       drawVisual = requestAnimationFrame(draw);
 
       analyser.getByteTimeDomainData(dataArray);
+	console.log(dataArray.length);
+	pastData.push(dataArray.slice());
+	if (pastData.length > n) {
+		pastData.shift();
+	}
 
       canvasCtx.fillStyle = 'rgb(200, 200, 200)';
       canvasCtx.fillRect(0, 0,WIDTH, HEIGHT);
@@ -49,9 +58,58 @@ function draw() {
       var sliceWidth = WIDTH * 1.0 / bufferLength;
       var x = 0;
 
+	var max = -10000;
+	var min = 10000;
+
+	// time smooth
+	for (var i = 0; i < bufferLength; i++) {
+		var v = 0;
+		var count = 0;
+		for (var j = 1; j <= pastData.length; j++) {
+			v += (pastData[j-1][i] * j);
+			count += j;
+		}
+		v /= count;
+		dataArray[i] = v;
+	}
+
+	// freq smooth
+	var dataArray2 = [];
+	for (var i = 0; i < bufferLength; i++) {
+		var v = k * dataArray[i];
+		var count = k;
+		for (var j = 1; j < k; j++) {
+			var mult = (k - j);
+			if (i - j >= 0) {
+				v += mult * dataArray[i-j];
+				count += mult;
+			}
+			if (i + j < bufferLength) {
+				v += mult * dataArray[i + j];
+				count += mult;
+			}
+		}
+		v /= count;
+		dataArray2[i] = v;
+		max = Math.max(max, dataArray2[i]);
+		min = Math.min(min, dataArray2[i]);
+	}
+
+	console.log(max);
+	console.log(min);
+	
+
       for(var i = 0; i < bufferLength; i++) {
    
-        var v = dataArray[i] / 128.0;
+        var v = dataArray2[i];
+	v -= min;
+	v /= (1.0 * max - min);
+
+	v = 1-v;
+	v = v*v*v;
+	
+	v = 1-v;
+	
         var y = v * HEIGHT/2;
 
         if(i === 0) {
@@ -65,7 +123,9 @@ function draw() {
 
       canvasCtx.lineTo(canvas.width, canvas.height/2);
       canvasCtx.stroke();
+
     };
+
 
     draw();
 });
