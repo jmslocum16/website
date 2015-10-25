@@ -36,7 +36,7 @@ var m = 100;
 var k = Math.round(analyser.fftSize / m);
 var pastData = [];
 
-var innerR = 280;
+var innerR = 200;
 var outerR = 30;
 
 var pts = [[87, 535], [463, 67], [545, 145], [650, 8], [1154, 592]];
@@ -140,10 +140,10 @@ function draw() {
 
 	
 	var curLine = 0;
-      //for(var i = 1; i < bufferLength; i++) {
-      for(var i = 0; i < bufferLength; i++) {
+      for(var i = 1; i < bufferLength; i++) {
+      //for(var i = 0; i < bufferLength; i++) {
    
-       	/*var v = -dataArray2[i];
+       	var v = -dataArray2[i];
 	var vPrev = -dataArray2[i-1];
 	
 	var vPct = i / (1.0 * (bufferLength-1));
@@ -173,8 +173,8 @@ function draw() {
 
 	canvasCtx.moveTo(xRight, yRight);
 	canvasCtx.lineTo(xPrevRight, yPrevRight);
-	*/
-	var v = dataArray2[i];
+	
+	/*var v = dataArray2[i];
 	var curPct = 1.0 * i / dataArray.length;
 	if (curPct > partial[curLine]) {
 		curLine++;
@@ -194,7 +194,7 @@ function draw() {
 		// TODO go out from normal of line
 		canvasCtx.lineTo(pts[curLine-1][0] + dx + dx2, pts[curLine - 1][1] + dy + dy2);
 		//canvasCtx.lineTo(pts[curLine-1][0] + dx, pts[curLine - 1][1] + dy);
-	}
+	}*/
 	
 
         /*var y = v * HEIGHT/2;
