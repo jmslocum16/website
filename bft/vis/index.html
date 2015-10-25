@@ -1,9 +1,11 @@
 <html>
 <head>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="whammy.js"></script>
 <script>
 
 console.log('test');
+var encoder = new Whammy.Video();
 
 $( document ).ready(function() {
 
@@ -57,8 +59,9 @@ console.log(pts);
 console.log(partial);
 console.log(distances);
 
-function draw() {
+var lastAnimationTime = new Date().getTime();
 
+function draw() {
 
       drawVisual = requestAnimationFrame(draw);
 
@@ -208,22 +211,41 @@ function draw() {
       //canvasCtx.lineTo(canvas.width, canvas.height/2);
       canvasCtx.stroke();
 
+	var newTime = new Date().getTime();
+	
+
+	encoder.add(canvas, newTime - lastAnimationTime);
+
+	lastAnimationTime = newTime;
+
     };
+var recording = true;
 
+draw();
 
-    draw();
 });
+function finish() {
+	console.log("test");
+    recording = false;
+var output = encoder.compile();
+var url = (window.webkitURL || window.URL).createObjectURL(output);
+console.log(url);
+
+}
+
+
 </script>
 </head>
 <body>
 <canvas id="drawcanvas" width="1280" height="720">
 Your browser does not support html5 canvas.
 </canvas>
-<audio controls id="audioelement">
+<audio controls autoplay id="audioelement">
 <!--<source src="skrux.mp3" type="audio/mp3">-->
 <source src="Commencement.mp3" type="audio/mp3">
 Your browser doesn't support html5 audio.
 </audio>
+<button onclick="finish()">Finish</button>
 <img id="backImg" src="summitvideo.bmp" style="display:hidden" />
 </body>
 </html>
