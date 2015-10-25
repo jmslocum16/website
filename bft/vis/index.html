@@ -31,13 +31,13 @@ var canvas = document.getElementById('drawcanvas');
 var canvasCtx = canvas.getContext('2d');
 
 //var n = 30;
-var n = 6;
+var n = 9;
 var m = 100;
 var k = Math.round(analyser.fftSize / m);
 var pastData = [];
 
 var innerR = 200;
-var outerR = 30;
+var outerR = 40;
 
 var pts = [[87, 535], [463, 67], [545, 145], [650, 8], [1154, 592]];
 var normals = [[0, 0], [-0.7795670274437404, -0.6263188083736034], [0.689213765997513, -0.7245580616896932], [-0.7936995981844469, -0.6083099110172768], [0.7570561454168382, -0.6533498241268603]];
@@ -127,12 +127,13 @@ function draw() {
 	for (var i = 0; i < dataArray2.length; i++) {
 		 var v = dataArray2[i];
 		v -= min;
-		//v /= (1.0 * max - min);
+		v /= (1.0 * max - min);
 		//v /= 150.0;
-		v /= 100;
+		//v /= 100;
 	
 		v = 1-v;
 		//v = v*v*v;
+		v = v*v;
 		
 		v = 1-v;
 		dataArray2[i] = v;
